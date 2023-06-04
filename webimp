@@ -1,0 +1,1104 @@
+//stack  
+
+
+function createStack() {
+    const stack = [];
+
+    function push(element) {
+      stack.push(element);
+    }
+  
+    function pop() {
+      if (stack.length === 0) {
+        return "Underflow";
+      }
+      return stack.pop();
+    }
+  
+    function peek() {
+      return stack[stack.length - 1];
+    }
+  
+ 
+    function isEmpty() {
+      return stack.length === 0;
+    }
+  
+    function size() {
+      return stack.length;
+    }
+ 
+    function printStack() {
+      let stackElements = stack.join(", ");
+      console.log(`Stack: ${stackElements}`);
+    }
+  
+    return {
+      push,
+      pop,
+      peek,
+      isEmpty,
+      size,
+      printStack,
+    };
+  }
+  
+  function runStackProgram() {
+    const stack = createStack();
+  
+    while (true) {
+      const choice = parseInt(prompt(
+        "Enter your choice:\n" +
+        "1. Push\n" +
+        "2. Pop\n" +
+        "3. Peek\n" +
+        "4. Check if stack is empty\n" +
+        "5. Get size of stack\n" +
+        "6. Print stack\n" +
+        "7. Exit"
+      ));
+  
+      switch (choice) {
+        case 1:
+          const element = prompt("Enter the element to push to the stack:");
+          stack.push(element);
+          console.log("Element pushed to the stack"+element);
+          break;
+        case 2:
+          const poppedElement = stack.pop();
+          console.log(`Popped element: ${poppedElement}`);
+          break;
+        case 3:
+          const topElement = stack.peek();
+          console.log(`Top element: ${topElement}`);
+          break;
+        case 4:
+          const emptyStatus = stack.isEmpty();
+          console.log(`Is stack empty? ${emptyStatus}`);
+          break;
+        case 5:
+          const stackSize = stack.size();
+          console.log(`Stack size: ${stackSize}`);
+          break;
+        case 6:
+          stack.printStack();
+          break;
+        case 7:
+          console.log("Exiting program...");
+          return;
+        default:
+          console.log("Invalid choice. Please try again.");
+      }
+    }
+  }
+ 
+  runStackProgram();
+   
+   
+   //queue
+
+
+
+
+// Queue implementation using functions
+function createQueue() {
+    const queue = [];
+  
+    // Enqueue element at the back of the queue
+    function enqueue(element) {
+      queue.push(element);
+    }
+  
+    // Dequeue element from the front of the queue
+    function dequeue() {
+      if (queue.length === 0) {
+        return "Underflow";
+      }
+      return queue.shift();
+    }
+  
+    // Get the front element of the queue
+    function front() {
+      return queue[0];
+    }
+  
+    // Check if the queue is empty
+    function isEmpty() {
+      return queue.length === 0;
+    }
+  
+    // Get the size of the queue
+    function size() {
+      return queue.length;
+    }
+  
+    // Print the elements of the queue
+    function printQueue() {
+      let queueElements = queue.join(", ");
+      console.log(`Queue: ${queueElements}`);
+    }
+  
+    return {
+      enqueue,
+      dequeue,
+      front,
+      isEmpty,
+      size,
+      printQueue,
+    };
+  }
+  
+  // Function to take user input and perform queue operations
+  function runQueueProgram() {
+    const queue = createQueue();
+  
+    while (true) {
+      const choice = parseInt(prompt(
+        "Enter your choice:\n" +
+        "1. Enqueue\n" +
+        "2. Dequeue\n" +
+        "3. Front\n" +
+        "4. Check if queue is empty\n" +
+        "5. Get size of queue\n" +
+        "6. Print queue\n" +
+        "7. Exit"
+      ));
+  
+      switch (choice) {
+        case 1:
+          const element = prompt("Enter the element to enqueue:");
+          queue.enqueue(element);
+          console.log(`Element '${element}' enqueued.`);
+          break;
+        case 2:
+          const dequeuedElement = queue.dequeue();
+          console.log(`Dequeued element: ${dequeuedElement}`);
+          break;
+        case 3:
+          const frontElement = queue.front();
+          console.log(`Front element: ${frontElement}`);
+          break;
+        case 4:
+          const emptyStatus = queue.isEmpty();
+          console.log(`Is queue empty? ${emptyStatus}`);
+          break;
+        case 5:
+          const queueSize = queue.size();
+          console.log(`Queue size: ${queueSize}`);
+          break;
+        case 6:
+          queue.printQueue();
+          break;
+        case 7:
+          console.log("Exiting program...");
+          return;
+        default:
+          console.log("Invalid choice. Please try again.");
+      }
+    }
+  }
+  runQueueProgram(); 
+  
+  //linked 
+  
+  
+  // Function to create a new node
+function createNode(data) {
+    return {
+      data: data,
+      next: null,
+    };
+  }
+  
+  // Function to add a new element at the front of the linked list
+  function insertFront(linkedList, data) {
+    const newNode = createNode(data);
+  
+    newNode.next = linkedList.head;
+    linkedList.head = newNode;
+  }
+  
+  // Function to add a new element at the end of the linked list
+  function insertEnd(linkedList, data) {
+    const newNode = createNode(data);
+  
+    if (linkedList.head === null) {
+      linkedList.head = newNode;
+    } else {
+      let current = linkedList.head;
+      while (current.next !== null) {
+        current = current.next;
+      }
+      current.next = newNode;
+    }
+  }
+  
+  // Function to add a new element at a specific position in the linked list
+  function insertAtLocation(linkedList, data, location) {
+    if (location === 0) {
+      insertFront(linkedList, data);
+      return;
+    }
+  
+    const newNode = createNode(data);
+    let current = linkedList.head;
+    let count = 0;
+    let previous = null;
+  
+    while (current !== null && count < location) {
+      previous = current;
+      current = current.next;
+      count++;
+    }
+  
+    if (current === null && count < location) {
+      console.log("Invalid location. Element cannot be inserted.");
+      return;
+    }
+  
+    newNode.next = current;
+    previous.next = newNode;
+  }
+  
+  // Function to delete the element at the front of the linked list
+  function deleteFront(linkedList)
+   {
+    if (linkedList.head === null)
+     {
+      console.log("Linked list is empty. No element to delete.");
+      return;
+    }
+  
+    const deletedData = linkedList.head.data;
+    linkedList.head = linkedList.head.next;
+    return deletedData;
+  }
+  
+  // Function to delete the element at the end of the linked list
+  function deleteEnd(linkedList) {
+    if (linkedList.head === null) {
+      console.log("Linked list is empty. No element to delete.");
+      return;
+    }
+  
+    if (linkedList.head.next === null) {
+      const deletedData = linkedList.head.data;
+      linkedList.head = null;
+      return deletedData;
+    }
+  
+    let current = linkedList.head;
+    while (current.next.next !== null) {
+      current = current.next;
+    }
+  
+    const deletedData = current.next.data;
+    current.next = null;
+    return deletedData;
+  }
+  
+  // Function to delete an element at a specific location in the linked list
+  function deleteAtLocation(linkedList, location) {
+    if (linkedList.head === null) {
+      console.log("Linked list is empty. No element to delete.");
+      return;
+    }
+  
+    if (location === 0) {
+      const deletedData = linkedList.head.data;
+      linkedList.head = linkedList.head.next;
+      return deletedData;
+    }
+  
+    let current = linkedList.head;
+    let count = 0;
+    let previous = null;
+  
+    while (current !== null && count < location) {
+      previous = current;
+      current = current.next;
+      count++;
+    }
+  
+    if (current === null) {
+      console.log("Invalid location. No element found.");
+      return;
+    }
+  
+    const deletedData = current.data;
+    previous.next = current.next;
+    return deletedData;
+  }
+  
+  // Function to print the elements of the linked list
+  function printList(linkedList) {
+    let current = linkedList.head;
+    let listElements = "";
+    while (current !== null) {
+      listElements += current.data + " -> ";
+      current = current.next;
+    }
+    listElements += "null";
+    console.log("Linked List:", listElements);
+  }
+  
+  // Function to take user input and perform linked list operations
+  function runLinkedListProgram() {
+    const linkedList = { head: null };
+  
+    while (true) {
+      const choice = parseInt(prompt(
+        "Enter your choice:\n" +
+        "1. Insert at the front\n" +
+        "2. Insert at the end\n" +
+        "3. Insert at a specific location\n" +
+        "4. Delete from the front\n" +
+        "5. Delete from the end\n" +
+        "6. Delete from a specific location\n" +
+        "7. Print linked list\n" +
+        "8. Exit"
+      ));
+  
+      switch (choice) {
+        case 1:
+          const elementToFront = prompt("Enter the element to insert at the front:");
+          insertFront(linkedList, elementToFront);
+          console.log(`Element '${elementToFront}' inserted at the front of the linked list.`);
+          break;
+        case 2:
+          const elementToEnd = prompt("Enter the element to insert at the end:");
+          insertEnd(linkedList, elementToEnd);
+          console.log(`Element '${elementToEnd}' inserted at the end of the linked list.`);
+          break;
+        case 3:
+          const element = prompt("Enter the element to insert:");
+          const insertLocation = parseInt(prompt("Enter the location to insert the element:"));
+          insertAtLocation(linkedList, element, insertLocation);
+          console.log(`Element '${element}' inserted at location ${insertLocation} in the linked list.`);
+          break;
+        case 4:
+          const deletedFrontElement = deleteFront(linkedList);
+          console.log(`Deleted element from the front: ${deletedFrontElement}`);
+          break;
+        case 5:
+          const deletedEndElement = deleteEnd(linkedList);
+          console.log(`Deleted element from the end: ${deletedEndElement}`);
+          break;
+        case 6:
+          const deleteLocation = parseInt(prompt("Enter the location to delete an element:"));
+          const deletedElement = deleteAtLocation(linkedList, deleteLocation);
+          console.log(`Deleted element at location ${deleteLocation}: ${deletedElement}`);
+          break;
+        case 7:
+          printList(linkedList);
+          break;
+        case 8:
+          console.log("Exiting program...");
+          return;
+        default:
+          console.log("Invalid choice. Please try again.");
+      }
+    }
+  }
+  
+  runLinkedListProgram();
+  
+  
+  
+  
+  //binary tree  
+  
+  
+function createNode(data) {
+    return {
+      data: data,
+      left: null,
+      right: null,
+    };
+  }
+  
+  // Function to insert a new element into the binary tree
+  function insertNode(root, data) {
+    if (root === null) {
+      return createNode(data);
+    }
+  
+    if (data < root.data) {
+      root.left = insertNode(root.left, data);
+    } else if (data > root.data) {
+      root.right = insertNode(root.right, data);
+    }
+  
+    return root;
+  }
+  
+  // Function to print the elements of the binary tree in pre-order traversal
+  function printTreePreOrder(root) {
+    if (root === null) {
+      return;
+    }
+  
+    console.log(root.data);
+    printTreePreOrder(root.left);
+    printTreePreOrder(root.right);
+  }
+  
+  // Function to print the elements of the binary tree in in-order traversal
+  function printTreeInOrder(root) {
+    if (root === null) {
+      return;
+    }
+  
+    printTreeInOrder(root.left);
+    console.log(root.data);
+    printTreeInOrder(root.right);
+  }
+  
+  // Function to print the elements of the binary tree in post-order traversal
+  function printTreePostOrder(root) {
+    if (root === null) {
+      return;
+    }
+  
+    printTreePostOrder(root.left);
+    printTreePostOrder(root.right);
+    console.log(root.data);
+  }
+  
+  // Function to take user input and build the binary tree
+  function buildBinaryTree() {
+    let root = null;
+  
+    while (true) {
+      const choice = parseInt(prompt(
+        "Enter your choice:\n" +
+        "1. Insert element\n" +
+        "2. Print tree in pre-order traversal\n" +
+        "3. Print tree in in-order traversal\n" +
+        "4. Print tree in post-order traversal\n" +
+        "5. Exit"
+      ));
+  
+      switch (choice) {
+        case 1:
+          const element = parseInt(prompt("Enter the element to insert:"));
+          root = insertNode(root, element);
+          console.log(`Element ${element} inserted into the binary tree.`);
+          break;
+        case 2:
+          console.log("Binary Tree (pre-order traversal):");
+          printTreePreOrder(root);
+          break;
+        case 3:
+          console.log("Binary Tree (in-order traversal):");
+          printTreeInOrder(root);
+          break;
+        case 4:
+          console.log("Binary Tree (post-order traversal):");
+          printTreePostOrder(root);
+          break;
+        case 5:
+          console.log("Exiting program...");
+          return;
+        default:
+          console.log("Invalid choice. Please try again.");
+      }
+    }
+  }
+  
+ buildBinaryTree(); 
+ 
+ 
+ //promises 1 
+ 
+ 
+ const testNumber=(number)=>new Promise((resolve,reject)=>
+{
+    if(number>20)
+    {
+        resolve('The number is greater');
+    }
+    else
+    {
+        reject("The number is lesser");
+    }
+})
+let n=prompt("enter the number");
+
+testNumber(n).then(function(value)
+{
+    console.log(value);
+}).catch(function(err)
+{
+    console.log(err)
+})
+
+
+//promise onfullfilled 
+
+
+
+const testNumber=(num)=>new Promise((resolve,reject)=>
+{
+    if(num>20)
+    {
+        resolve('The number is greater');
+    }
+    else
+    {
+        reject("The number is smaller");
+    }
+})
+
+
+function onFullfilled(value)
+{
+    console.log(value);
+}
+
+
+function onRejected(err)
+{
+    console.log(err);
+}
+
+
+const promise=testNumber(25);
+promise.then(onFullfilled,onRejected) 
+
+
+
+//promise paris
+
+
+function planTrip(location) 
+{
+    return new Promise((resolve, reject) => {
+      if (location === "Paris")
+     {
+        resolve("Let's take a trip to Paris");
+      } 
+      else
+     {
+        reject("Invalid Location");
+      }
+    });
+ }
+  
+  const userInput = prompt("Enter a location:");
+  
+  planTrip(userInput).then(function(value)
+  {
+    console.log(value);
+  }).catch(function(err)
+
+  {
+        console.log(value);
+  })
+   
+   
+   //async and await
+  
+  function delay(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+  
+  async function performOperation(operation, num1, num2) {
+    await delay(10000);
+  
+    let result;
+    switch (operation) {
+      case "+":
+        result = num1 + num2;
+        break;
+      case "-":
+        result = num1 - num2;
+        break;
+      case "*":
+        result = num1 * num2;
+        break;
+      case "/":
+        result = num1 / num2;
+        break;
+      default:
+        throw new Error("Invalid operation");
+    }
+  
+    console.log(`${num1} ${operation} ${num2} = ${result}`);
+  }
+  
+  async function calculate() {
+    try {
+      const operation = prompt("Enter the arithmetic operation (+, -, *, /):");
+      const num1 = parseFloat(prompt("Enter the first number:"));
+      const num2 = parseFloat(prompt("Enter the second number:"));
+  
+      await performOperation(operation, num1, num2);
+  
+      console.log("Calculation completed!");
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+  
+  calculate();
+  
+  
+  
+  
+  //email
+  
+  
+  
+  function validateEmail(email) 
+{
+    const emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailregex.test(email);
+  }
+  
+  const userInput = prompt("Enter an email address:");
+  
+  if (validateEmail(userInput))
+   {
+    alert("Valid email address");
+  } else 
+  {
+    alert("Invalid email address");
+  }
+  
+  
+  //Notification 
+  
+  
+  
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Notification API</title>
+</head>
+
+<body>
+   
+        <h1>JavaScript Notification API kkDemo</h1>
+       
+    </div>
+    <script>
+        (async() => {
+            // create and show the notification
+            const showNotification = () =>
+             {
+                // create a new notification
+                const notification = new Notification('JavaScript Notification API', 
+                {
+                    body: 'This is a JavaScript Notification API demo',
+                    icon: './js.png'
+                });
+
+                // close the notification after 10 seconds
+                setTimeout(() => {
+                    notification.close();
+                }, 10 * 500);
+
+                // navigate to a URL when clicked
+                notification.addEventListener('click', () => {
+                    window.open('./notification.html', '_blank');
+                });
+            }
+
+            // show an error message
+            const showError = () => {
+                const error = document.querySelector('.error');
+                error.style.display = 'block';
+                error.textContent = 'You blocked the notifications';
+            }
+
+            // check notification permission
+            let granted = false;
+
+            if (Notification.permission == 'granted') {
+                granted = true;
+            } else if (Notification.permission !== 'denied') {
+                let permission = await Notification.requestPermission();
+                granted = permission == 'granted' ? true : false;
+            }
+
+            // show notification or error
+            granted ? showNotification() : showError();
+
+        })();
+    </script>
+</body>
+
+</html> 
+
+
+
+
+//local storage and session storage
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <p>
+        <button onclick="clickCounter()" type="button">Click me!</button>
+    </p>
+    <div id="result"></div>
+    <p>Click the button to see the counter increase.</p>
+    <p>Close the browser tab (or window), and try again, and the counter will continue to count (is not reset).</p>
+    <script>
+           function clickCounter() 
+           {
+            if (typeof(Storage) != "undefined") 
+            {
+                if (localStorage.clickcount) 
+                {
+                    localStorage.clickcount = Number(localStorage.clickcount) + 1;
+                } 
+                else 
+                {
+                    localStorage.clickcount = 1;
+                }
+                document.getElementById("result").innerHTML = "You have clicked the button " + localStorage.clickcount + " time(s).";
+            }
+            else 
+            {
+                document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
+            }
+        }
+    </script>
+</body>
+
+//location 
+
+
+
+// Get the reference to the button element
+var getLocationButton = document.getElementById("getLocationButton");
+
+// Attach a click event listener to the button
+getLocationButton.addEventListener('click',()=> 
+{
+  // Check if the Geolocation API is supported by the browser
+  if (navigator.geolocation) {
+    // Get the current position
+    navigator.geolocation.getCurrentPosition(showPosition, showError);
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
+});
+
+// Callback function to handle successful retrieval of position
+function showPosition(position) {
+  var latitude = position.coords.latitude;
+  var longitude = position.coords.longitude;
+ document.write(latitude);
+ document.write("longitude");
+ document.write(longitude);
+  console.log("Latitude: " + latitude);
+  console.log("Longitude: " + longitude);
+}
+
+// Callback function to handle errors
+function showError(error) {
+  switch (error.code) {
+    case error.PERMISSION_DENIED:
+      console.log("User denied the request for Geolocation.");
+      break;
+    case error.POSITION_UNAVAILABLE:
+      console.log("Location information is unavailable.");
+      break;
+    case error.TIMEOUT:
+      console.log("The request to get user location timed out.");
+      break;
+    case error.UNKNOWN_ERROR:
+      console.log("An unknown error occurred.");
+      break;
+  }
+}
+
+
+
+</html>
+ 
+ 
+ 
+ //getelementbyclass
+ 
+ 
+ 
+ 
+ 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript getElementsByClassName</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul id="menu">
+                <li class="item">HTML</li>
+                <li class="item">CSS</li>
+                <li class="item highlight">JavaScript</li>
+                <li class="item">TypeScript</li>
+            </ul>
+        </nav>
+        <h1>getElementsByClassName Demo</h1>
+    </header>
+    <section>
+        <article>
+            <h2 class="secondary">Example 1</h2>
+        </article>
+        <article>
+            <h2 class="secondary">Example 2</h2>
+        </article>
+    </section>
+</body>
+<script>
+    // Calling JavaScript getElementsByClassName() on an element example
+    let menu = document.getElementById('menu');
+    let items = menu.getElementsByClassName('item');
+
+    let data = [].map.call(items, item => item.textContent);
+
+    console.log(data);
+
+    // Calling JavaScript getElementsByClassName() on the document example
+    let elements = document.getElementsByClassName('secondary');
+    let data2 = [].map.call(elements, elem => elem.textContent);
+
+    console.log(data2);
+</script>
+
+</html>
+
+
+
+//getElementById
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selecting elements</title>
+</head>
+
+<body>
+    <p id="message">A paragraph</p>
+
+
+
+</body>
+
+
+<script>
+    // 1
+    const p = document.getElementById('message');
+    console.log(p);
+    document.write("The Inner text of the pragraph is :" +
+        p.innerText);
+    p.innerHTML = " This is a demo text ";
+</script>
+
+</html>
+
+
+
+//getElementsByName
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selecting elements</title>
+</head>
+
+<body>
+
+    <!-- 2 getElementsByName-->
+    <p>Please rate the service:</p>
+    <p>
+        <label for="very-poor">
+            <input type="radio" name="rate" value="Very poor" id="very-poor"> Very poor
+        </label>
+        <label for="poor">
+            <input type="radio" name="rate" value="Poor" id="poor"> Poor
+        </label>
+        <label for="ok">
+            <input type="radio" name="rate" value="OK" id="ok"> OK
+        </label>
+        <label for="good">
+            <input type="radio" name="rate" value="Good"> Good
+        </label>
+        <label for="very-good">
+            <input type="radio" name="rate" value="Very Good" id="very-good"> Very Good
+        </label>
+    </p>
+    <p>
+        <button id="btnRate">Submit</button>
+    </p>
+    <p id="output"></p>
+
+
+
+</body>
+
+
+<script>
+    let btn = document.getElementById('btnRate');
+    let output = document.getElementById('output');
+
+    btn.addEventListener('click', () => {
+        let rates = document.getElementsByName('rate');
+        rates.forEach((rate) => {
+            if (rate.checked) {
+                output.innerText = `You selected: ${rate.value}`;
+            }
+        });
+
+    });
+</script>
+
+</html>
+
+
+
+
+//getelementbyqueryselector
+
+
+
+
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <h2>JavaScript HTML DOM</h2>
+
+    <p>Finding HTML Elements by Query Selector</p>
+    <p class="intro">Hello World!.</p>
+    <p class="intro">This example demonstrates the <b>querySelectorAll</b> method.</p>
+
+    <p id="demo"></p>
+    <p id="demo2"></p>
+    <p id="demo3"></p>
+
+
+    <script>
+        const x = document.querySelector("p");
+        document.getElementById("demo").innerHTML =
+            '<b> The first paragraph is: </b>' + x.innerHTML;
+
+        const z = document.querySelector("p.intro");
+        document.getElementById("demo2").innerHTML =
+            '<b> The first paragraph (index 0) with class="intro" is: </b>' + z.innerHTML;
+
+        const y = document.querySelectorAll("p");
+        document.getElementById("demo3").innerHTML =
+            'The second paragraph (index 1) with class="intro" is: ' + y[1].innerHTML;
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+//getElementBytag
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selecting elements</title>
+</head>
+
+<body>
+
+    <!-- 3 getElementsByTagName()-->
+    <h1>JavaScript getElementsByTagName() Demo</h1>
+    <h2>First heading</h2>
+    <p>This is the first paragraph.</p>
+    <h2>Second heading</h2>
+    <p>This is the second paragraph.</p>
+    <h2>Third heading</h2>
+    <p>This is the third paragraph.</p>
+
+    <button id="btnCount">Count H2</button>
+
+
+
+</body>
+
+
+<script>
+    let btn = document.getElementById('btnCount');
+    btn.addEventListener('click', () => {
+        let headings = document.getElementsByTagName('h2');
+        console.log(headings);
+        alert(`The number of H2 tags: ${headings.length}`);
+        document.write("The headertag of second position=", headings[1].innerText);
+    });
+</script>
+
+</html>
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  
