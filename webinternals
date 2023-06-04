@@ -1,0 +1,101 @@
+// Stack implementation using functions
+function createStack() {
+    const stack = [];
+  
+    // Push element to the top of the stack
+    function push(element) {
+      stack.push(element);
+    }
+  
+    // Pop element from the top of the stack
+    function pop() {
+      if (stack.length === 0) {
+        return "Underflow";
+      }
+      return stack.pop();
+    }
+  
+    // Get the top element of the stack
+    function peek() {
+      return stack[stack.length - 1];
+    }
+  
+    // Check if the stack is empty
+    function isEmpty() {
+      return stack.length === 0;
+    }
+  
+    // Get the size of the stack
+    function size() {
+      return stack.length;
+    }
+  
+    // Print the elements of the stack
+    function printStack() {
+      let stackElements = stack.join(", ");
+      console.log(`Stack: ${stackElements}`);
+    }
+  
+    return {
+      push,
+      pop,
+      peek,
+      isEmpty,
+      size,
+      printStack,
+    };
+  }
+  
+  // Function to take user input and perform stack operations
+  function runStackProgram() {
+    const stack = createStack();
+  
+    while (true) {
+      const choice = parseInt(prompt(
+        "Enter your choice:\n" +
+        "1. Push\n" +
+        "2. Pop\n" +
+        "3. Peek\n" +
+        "4. Check if stack is empty\n" +
+        "5. Get size of stack\n" +
+        "6. Print stack\n" +
+        "7. Exit"
+      ));
+  
+      switch (choice) {
+        case 1:
+          const element = prompt("Enter the element to push to the stack:");
+          stack.push(element);
+          console.log("Element pushed to the stack"+element);
+          break;
+        case 2:
+          const poppedElement = stack.pop();
+          console.log(`Popped element: ${poppedElement}`);
+          break;
+        case 3:
+          const topElement = stack.peek();
+          console.log(`Top element: ${topElement}`);
+          break;
+        case 4:
+          const emptyStatus = stack.isEmpty();
+          console.log(`Is stack empty? ${emptyStatus}`);
+          break;
+        case 5:
+          const stackSize = stack.size();
+          console.log(`Stack size: ${stackSize}`);
+          break;
+        case 6:
+          stack.printStack();
+          break;
+        case 7:
+          console.log("Exiting program...");
+          return;
+        default:
+          console.log("Invalid choice. Please try again.");
+      }
+    }
+  }
+  
+  // Run the stack program
+  runStackProgram();
+  
