@@ -1,4 +1,4 @@
-// Stack implementation using functions
+1)  // Stack implementation using functions
 function createStack() {
     const stack = [];
   
@@ -78,7 +78,7 @@ function createStack() {
           break;
         case 4:
           const emptyStatus = stack.isEmpty();
-          console.log(`Is stack empty? ${emptyStatus}`);
+          console.log(`Is stack empty? ${emptyStatus}`);  
           break;
         case 5:
           const stackSize = stack.size();
@@ -97,5 +97,603 @@ function createStack() {
   }
   
   // Run the stack program
-  runStackProgram();
+  runStackProgram();  
+  
+  
+  
+  
+  2)queue 
+  
+  
+  
+  // Queue implementation using functions
+function createQueue() {
+    const queue = [];
+  
+    // Enqueue element at the back of the queue
+    function enqueue(element) {
+      queue.push(element);
+    }
+  
+    // Dequeue element from the front of the queue
+    function dequeue() {
+      if (queue.length === 0) {
+        return "Underflow";
+      }
+      return queue.shift();
+    }
+  
+    // Get the front element of the queue
+    function front() {
+      return queue[0];
+    }
+  
+    // Check if the queue is empty
+    function isEmpty() {
+      return queue.length === 0;
+    }
+  
+    // Get the size of the queue
+    function size() {
+      return queue.length;
+    }
+  
+    // Print the elements of the queue
+    function printQueue() {
+      let queueElements = queue.join(", ");
+      console.log(`Queue: ${queueElements}`);
+    }
+  
+    return {
+      enqueue,
+      dequeue,
+      front,
+      isEmpty,
+      size,
+      printQueue,
+    };
+  }
+  
+  // Function to take user input and perform queue operations
+  function runQueueProgram() {
+    const queue = createQueue();
+  
+    while (true) {
+      const choice = parseInt(prompt(
+        "Enter your choice:\n" +
+        "1. Enqueue\n" +
+        "2. Dequeue\n" +
+        "3. Front\n" +
+        "4. Check if queue is empty\n" +
+        "5. Get size of queue\n" +
+        "6. Print queue\n" +
+        "7. Exit"
+      ));
+  
+      switch (choice) {
+        case 1:
+          const element = prompt("Enter the element to enqueue:");
+          queue.enqueue(element);
+          console.log(`Element '${element}' enqueued.`);
+          break;
+        case 2:
+          const dequeuedElement = queue.dequeue();
+          console.log(`Dequeued element: ${dequeuedElement}`);
+          break;
+        case 3:
+          const frontElement = queue.front();
+          console.log(`Front element: ${frontElement}`);
+          break;
+        case 4:
+          const emptyStatus = queue.isEmpty();
+          console.log(`Is queue empty? ${emptyStatus}`);
+          break;
+        case 5:
+          const queueSize = queue.size();
+          console.log(`Queue size: ${queueSize}`);
+          break;
+        case 6:
+          queue.printQueue();
+          break;
+        case 7:
+          console.log("Exiting program...");
+          return;
+        default:
+          console.log("Invalid choice. Please try again.");
+      }
+    }
+  }
+  
+  // Run the queue program
+  runQueueProgram();
+  
+  
+  
+  
+  3)linked list
+  
+  
+  
+  // Function to create a new node
+function createNode(data) {
+    return {
+      data: data,
+      next: null,
+    };
+  }
+  
+  // Function to add a new element at the front of the linked list
+  function insertFront(linkedList, data) {
+    const newNode = createNode(data);
+  
+    newNode.next = linkedList.head;
+    linkedList.head = newNode;
+  }
+  
+  // Function to add a new element at the end of the linked list
+  function insertEnd(linkedList, data) {
+    const newNode = createNode(data);
+  
+    if (linkedList.head === null) {
+      linkedList.head = newNode;
+    } else {
+      let current = linkedList.head;
+      while (current.next !== null) {
+        current = current.next;
+      }
+      current.next = newNode;
+    }
+  }
+  
+  // Function to add a new element at a specific position in the linked list
+  function insertAtLocation(linkedList, data, location) {
+    if (location === 0) {
+      insertFront(linkedList, data);
+      return;
+    }
+  
+    const newNode = createNode(data);
+    let current = linkedList.head;
+    let count = 0;
+    let previous = null;
+  
+    while (current !== null && count < location) {
+      previous = current;
+      current = current.next;
+      count++;
+    }
+  
+    if (current === null && count < location) {
+      console.log("Invalid location. Element cannot be inserted.");
+      return;
+    }
+  
+    newNode.next = current;
+    previous.next = newNode;
+  }
+  
+  // Function to delete the element at the front of the linked list
+  function deleteFront(linkedList)
+   {
+    if (linkedList.head === null)
+     {
+      console.log("Linked list is empty. No element to delete.");
+      return;
+    }
+  
+    const deletedData = linkedList.head.data;
+    linkedList.head = linkedList.head.next;
+    return deletedData;
+  }
+  
+  // Function to delete the element at the end of the linked list
+  function deleteEnd(linkedList) {
+    if (linkedList.head === null) {
+      console.log("Linked list is empty. No element to delete.");
+      return;
+    }
+  
+    if (linkedList.head.next === null) {
+      const deletedData = linkedList.head.data;
+      linkedList.head = null;
+      return deletedData;
+    }
+  
+    let current = linkedList.head;
+    while (current.next.next !== null) {
+      current = current.next;
+    }
+  
+    const deletedData = current.next.data;
+    current.next = null;
+    return deletedData;
+  }
+  
+  // Function to delete an element at a specific location in the linked list
+  function deleteAtLocation(linkedList, location) {
+    if (linkedList.head === null) {
+      console.log("Linked list is empty. No element to delete.");
+      return;
+    }
+  
+    if (location === 0) {
+      const deletedData = linkedList.head.data;
+      linkedList.head = linkedList.head.next;
+      return deletedData;
+    }
+  
+    let current = linkedList.head;
+    let count = 0;
+    let previous = null;
+  
+    while (current !== null && count < location) {
+      previous = current;
+      current = current.next;
+      count++;
+    }
+  
+    if (current === null) {
+      console.log("Invalid location. No element found.");
+      return;
+    }
+  
+    const deletedData = current.data;
+    previous.next = current.next;
+    return deletedData;
+  }
+  
+  // Function to print the elements of the linked list
+  function printList(linkedList) {
+    let current = linkedList.head;
+    let listElements = "";
+    while (current !== null) {
+      listElements += current.data + " -> ";
+      current = current.next;
+    }
+    listElements += "null";
+    console.log("Linked List:", listElements);
+  }
+  
+  // Function to take user input and perform linked list operations
+  function runLinkedListProgram() {
+    const linkedList = { head: null };
+  
+    while (true) {
+      const choice = parseInt(prompt(
+        "Enter your choice:\n" +
+        "1. Insert at the front\n" +
+        "2. Insert at the end\n" +
+        "3. Insert at a specific location\n" +
+        "4. Delete from the front\n" +
+        "5. Delete from the end\n" +
+        "6. Delete from a specific location\n" +
+        "7. Print linked list\n" +
+        "8. Exit"
+      ));
+  
+      switch (choice) {
+        case 1:
+          const elementToFront = prompt("Enter the element to insert at the front:");
+          insertFront(linkedList, elementToFront);
+          console.log(`Element '${elementToFront}' inserted at the front of the linked list.`);
+          break;
+        case 2:
+          const elementToEnd = prompt("Enter the element to insert at the end:");
+          insertEnd(linkedList, elementToEnd);
+          console.log(`Element '${elementToEnd}' inserted at the end of the linked list.`);
+          break;
+        case 3:
+          const element = prompt("Enter the element to insert:");
+          const insertLocation = parseInt(prompt("Enter the location to insert the element:"));
+          insertAtLocation(linkedList, element, insertLocation);
+          console.log(`Element '${element}' inserted at location ${insertLocation} in the linked list.`);
+          break;
+        case 4:
+          const deletedFrontElement = deleteFront(linkedList);
+          console.log(`Deleted element from the front: ${deletedFrontElement}`);
+          break;
+        case 5:
+          const deletedEndElement = deleteEnd(linkedList);
+          console.log(`Deleted element from the end: ${deletedEndElement}`);
+          break;
+        case 6:
+          const deleteLocation = parseInt(prompt("Enter the location to delete an element:"));
+          const deletedElement = deleteAtLocation(linkedList, deleteLocation);
+          console.log(`Deleted element at location ${deleteLocation}: ${deletedElement}`);
+          break;
+        case 7:
+          printList(linkedList);
+          break;
+        case 8:
+          console.log("Exiting program...");
+          return;
+        default:
+          console.log("Invalid choice. Please try again.");
+      }
+    }
+  }
+  
+  // Run the linked list program
+  runLinkedListProgram();
+   
+    
+    4)binarytree
+    
+    
+    
+    // Function to create a new node
+function createNode(data) {
+    return {
+      data: data,
+      left: null,
+      right: null,
+    };
+  }
+  
+  // Function to insert a new element into the binary tree
+  function insertNode(root, data) {
+    if (root === null) {
+      return createNode(data);
+    }
+  
+    if (data < root.data) {
+      root.left = insertNode(root.left, data);
+    } else if (data > root.data) {
+      root.right = insertNode(root.right, data);
+    }
+  
+    return root;
+  }
+  
+  // Function to print the elements of the binary tree in pre-order traversal
+  function printTreePreOrder(root) {
+    if (root === null) {
+      return;
+    }
+  
+    console.log(root.data);
+    printTreePreOrder(root.left);
+    printTreePreOrder(root.right);
+  }
+  
+  // Function to print the elements of the binary tree in in-order traversal
+  function printTreeInOrder(root) {
+    if (root === null) {
+      return;
+    }
+  
+    printTreeInOrder(root.left);
+    console.log(root.data);
+    printTreeInOrder(root.right);
+  }
+  
+  // Function to print the elements of the binary tree in post-order traversal
+  function printTreePostOrder(root) {
+    if (root === null) {
+      return;
+    }
+  
+    printTreePostOrder(root.left);
+    printTreePostOrder(root.right);
+    console.log(root.data);
+  }
+  
+  // Function to take user input and build the binary tree
+  function buildBinaryTree() {
+    let root = null;
+  
+    while (true) {
+      const choice = parseInt(prompt(
+        "Enter your choice:\n" +
+        "1. Insert element\n" +
+        "2. Print tree in pre-order traversal\n" +
+        "3. Print tree in in-order traversal\n" +
+        "4. Print tree in post-order traversal\n" +
+        "5. Exit"
+      ));
+  
+      switch (choice) {
+        case 1:
+          const element = parseInt(prompt("Enter the element to insert:"));
+          root = insertNode(root, element);
+          console.log(`Element ${element} inserted into the binary tree.`);
+          break;
+        case 2:
+          console.log("Binary Tree (pre-order traversal):");
+          printTreePreOrder(root);
+          break;
+        case 3:
+          console.log("Binary Tree (in-order traversal):");
+          printTreeInOrder(root);
+          break;
+        case 4:
+          console.log("Binary Tree (post-order traversal):");
+          printTreePostOrder(root);
+          break;
+        case 5:
+          console.log("Exiting program...");
+          return;
+        default:
+          console.log("Invalid choice. Please try again.");
+      }
+    }
+  }
+  
+  // Run the binary tree program
+  buildBinaryTree();
+   
+   
+   5)promise
+   
+   
+   
+   const testNumber=(number)=>new Promise((resolve,reject)=>
+{
+    if(number>20)
+    {
+        resolve('The number is greater');
+    }
+    else
+    {
+        reject("The number is lesser");
+    }
+})
+let n=prompt("enter the number");
+
+testNumber(n).then(function(value)
+{
+    console.log(value);
+}).catch(function(err)
+{
+    console.log(err)
+})
+
+
+
+6)promise2
+
+
+const testNumber=(num)=>new Promise((resolve,reject)=>
+{
+    if(num>20)
+    {
+        resolve('The number is greater');
+    }
+    else
+    {
+        reject("The number is smaller");
+    }
+})
+
+
+function onFullfilled(value)
+{
+    console.log(value);
+}
+
+
+function onRejected(err)
+{
+    console.log(err);
+}
+
+
+const promise=testNumber(25);
+promise.then(onFullfilled,onRejected) 
+
+
+7)aync await operations
+
+
+function delay(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+  
+  async function performOperation(operation, num1, num2) {
+    await delay(10000);
+  
+    let result;
+    switch (operation) {
+      case "+":
+        result = num1 + num2;
+        break;
+      case "-":
+        result = num1 - num2;
+        break;
+      case "*":
+        result = num1 * num2;
+        break;
+      case "/":
+        result = num1 / num2;
+        break;
+      default:
+        throw new Error("Invalid operation");
+    }
+  
+    console.log(`${num1} ${operation} ${num2} = ${result}`);
+  }
+  
+  async function calculate() {
+    try {
+      const operation = prompt("Enter the arithmetic operation (+, -, *, /):");
+      const num1 = parseFloat(prompt("Enter the first number:"));
+      const num2 = parseFloat(prompt("Enter the second number:"));
+  
+      await performOperation(operation, num1, num2);
+  
+      console.log("Calculation completed!");
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+  
+  calculate();
+  
+  
+  
+  8)paris  
+  
+  
+  
+  function planTrip(location) 
+{
+    return new Promise((resolve, reject) => {
+      if (location === "Paris")
+     {
+        resolve("Let's take a trip to Paris");
+      } 
+      else
+     {
+        reject("Invalid Location");
+      }
+    });
+ }
+  
+  const userInput = prompt("Enter a location:");
+  
+  planTrip(userInput).then(function(value)
+  {
+    console.log(value);
+  }).catch(function(err)
+
+  {
+        console.log(value);
+  })
+   
+   
+   
+  9)Email
+  
+  
+  
+  
+  
+  function validateEmail(email) 
+{
+    const emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailregex.test(email);
+  }
+  
+  const userInput = prompt("Enter an email address:");
+  
+  if (validateEmail(userInput))
+   {
+    alert("Valid email address");
+  } else 
+  {
+    alert("Invalid email address");
+  }
+  
+  
+  
+   
+   
+   
+  
+  
+  
+  
+  
+  
+  
   
