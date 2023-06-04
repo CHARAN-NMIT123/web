@@ -1,6 +1,7 @@
 //stack  
 
 
+/*
 function createStack() {
     const stack = [];
 
@@ -1076,6 +1077,7 @@ function showError(error) {
 </script>
 
 </html>
+*/
 
 
 
